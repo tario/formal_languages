@@ -15,4 +15,6 @@ describe DsLisp, "N queens" do
   end
 
   test_expression("(car '(1 2 3))")
+  test_expression("(car '(4 5 6))")
+  test_expression("(car '(7 8 9))")
 end
