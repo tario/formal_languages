@@ -1,6 +1,6 @@
 (block
   (defun lisp (code)
-    1
+    (car (car (cdr code)))
   )
 )
   
