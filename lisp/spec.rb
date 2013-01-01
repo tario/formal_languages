@@ -19,4 +19,7 @@ describe DsLisp, "N queens" do
   test_expression("(car '(7 8 9))")
 
   test_expression("(cdr '(1 2 3))")
+
+  test_expression("(if T 1)")
+  test_expression("(if nil 1 2)")
 end
