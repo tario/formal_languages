@@ -4,6 +4,7 @@
     (cond
       ((eq func 'car) (car (car argumentos)))
       ((eq func 'cdr) (cdr (car argumentos)))
+      ((eq func '+) (+ (car argumentos) (car (cdr argumentos)) ))
       ((eq func 'if) 
         (if 
           (lisp (car argumentos))
