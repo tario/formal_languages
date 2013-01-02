@@ -20,7 +20,23 @@
     (if (null (car tablero))
       T
       (and 
-        (< (sumatoria (mapcar '(lambda (x) (or (car x) 0)) tablero)) 2) 
+        (< 
+          (sumatoria 
+            (mapcar 
+              (lambda (x) 
+                (or 
+                  (if 
+                    (listp x) 
+                    (car x) 
+                    0
+                  ) 
+                  0
+                ) 
+              ) 
+              tablero)
+            ) 
+          2
+        ) 
         (valido_columnas (mapcar 'cdr tablero))
       )
     )
@@ -36,26 +52,11 @@
     )
   )
 
-  (defun completar_ceros (linea n)
-    (if 
-      (eq (length linea) n)
-      linea
-      (completar_ceros (append linea (list 0)) n)
-    )
-  )
-
   (defun valido_diagonal_der (tablero)
     (if (null tablero)
       T    
       (and 
-        (valido_columnas 
-          (mapcar
-            (lambda (x)
-              (completar_ceros x (length (car tablero)))
-            )
-            (despl_diagonal tablero)
-          )
-        )
+        (valido_columnas (despl_diagonal tablero))
         (valido_diagonal_der (cdr tablero))
       )
     )
