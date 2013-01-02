@@ -1,6 +1,6 @@
 require "dslisprb"
 
-describe DsLisp, "N queens" do
+describe DsLisp, "LISP" do
   def lisp
     dslisp = DsLisp.new
     code = File.open("lisp.lsp").read.gsub("\n"," ")
