@@ -29,4 +29,6 @@ describe DsLisp, "LISP" do
   test_expression("(let ((a 5)) a)")
   test_expression("(let ((a 6)) a)")
 
+  test_expression("(let ((a 6)) (if T a))")
+
 end
