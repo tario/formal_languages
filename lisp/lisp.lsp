@@ -9,16 +9,17 @@
           (lisp (car (cdr (cdr argumentos)))) 
         )
       )
-      (T (apply func argumentos))
+      (T (apply func (mapcar 'lisp argumentos)))
     )
   )
  
 
   (defun lisp (code)
-    (cond 
+    (cond
       ((symbolp code) code)
       ((atom code) code)
       ((null code) nil)
+      ((eq (car code) 'quote) (car (cdr code)) ) 
       (T (ejecutar_funcion (car code) (cdr code)))
     )
   )
