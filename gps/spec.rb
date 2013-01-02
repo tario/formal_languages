@@ -11,4 +11,8 @@ describe DsLisp, "GPS" do
   it "should solve single path" do
     lisp.evaluate("(camino_minimo '(1 2) '((1 2)) 1 2)").should be == [1, 2]
   end
+
+  it "should solve alternate single path (1 3)" do
+    lisp.evaluate("(camino_minimo '(1 3) '((1 3)) 1 3)").should be == [1, 3]
+  end
 end
