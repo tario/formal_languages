@@ -12,14 +12,14 @@
   (defun ejecutar_funcion (func argumentos entorno)
     (cond
       ((eq func 'let)
-        (lisp_i 
+        (lisp 
           (car (cdr argumentos)) 
           (append 
             (mapcar
               (lambda (a) 
                 (list 
                   (car a) 
-                  (lisp_i (car (cdr a)) entorno)
+                  (lisp (car (cdr a)) entorno)
                 )
               )
               (car argumentos)
@@ -30,16 +30,16 @@
       )
       ((eq func 'if) 
         (if 
-          (lisp_i (car argumentos) entorno)
-          (lisp_i (car (cdr argumentos)) entorno)
-          (lisp_i (car (cdr (cdr argumentos))) entorno) 
+          (lisp (car argumentos) entorno)
+          (lisp (car (cdr argumentos)) entorno)
+          (lisp (car (cdr (cdr argumentos))) entorno) 
         )
       )
-      (T (apply func (mapcar (lambda (a) (lisp_i a entorno) ) argumentos)))
+      (T (apply func (mapcar (lambda (a) (lisp a entorno) ) argumentos)))
     )
   )
 
-  (defun lisp_i (code entorno)
+  (defun lisp (code &optional (entorno '()))
     (cond
       ((numberp code) code)
       ((null code) nil)
@@ -48,10 +48,6 @@
       ((eq (car code) 'quote) (car (cdr code)) ) 
       (T (ejecutar_funcion (car code) (cdr code) entorno))
     )
-  )
-
-  (defun lisp (code)
-    (lisp_i code '())
   )
 )
   
