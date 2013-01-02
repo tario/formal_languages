@@ -83,27 +83,23 @@
     )
   )
 
-  (defun reinas_i (n tablero m) 
+  (defun reinas (n &optional (tablero '()) &optional (m nil)) 
     (if (eq (length tablero) n)
       tablero
-      (if (valido (cons (reina_en_linea n m) tablero))
+      (if (valido (cons (reina_en_linea n (or m n)) tablero))
         (or
-          (reinas_i n (cons (reina_en_linea n m) tablero) n)
-          (if (eq m 1)
+          (reinas n (cons (reina_en_linea n (or m n)) tablero) n)
+          (if (eq (or m n) 1)
             nil
-            (reinas_i n tablero (- m 1))
+            (reinas n tablero (- (or m n) 1))
           )
         )
-        (if (eq m 1)
+        (if (eq (or m n) 1)
           nil
-          (reinas_i n tablero (- m 1))
+          (reinas n tablero (- (or m n) 1))
         )
       )
     )
-  )
-
-  (defun reinas (n)
-    (reinas_i n '() n)
   )
 )
   
