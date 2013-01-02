@@ -23,6 +23,20 @@
     )
   )
 
+  (defun vecinos_r (vertice aristas)
+    (if (null aristas)
+      nil
+      (if
+        (eq (car (cdr (car aristas))) vertice)
+        (cons
+          (car (car aristas))
+          (vecinos_r vertice (cdr aristas))
+        )
+        (vecinos_r vertice (cdr aristas))
+      )
+    )
+  )
+
   (defun obtener_distancia (vertices distancias v)
     (if 
       (null distancias)
@@ -87,8 +101,43 @@
     )
   )
 
+  (defun menor_distancia (vertices distancias v)
+    (if (eq (length v) 1)
+      (car v)
+      (let
+        (
+          (md (menor_distancia vertices distancias (cdr v)))
+          (da (obtener_distancia vertices distancias (car v)))
+        )
+        (if (< da (obtener_distancia vertices distancias md)) (car v) md)
+      )
+    )
+  )
+
+  (defun construir_camino (vertices aristas distancias origen destino)
+    (if (eq origen destino)
+      (list origen)
+      (append
+        (construir_camino
+          vertices
+          aristas
+          distancias
+          origen
+          (menor_distancia vertices distancias (vecinos_r destino aristas))
+        ) 
+        (list destino)
+      )
+    )
+  )
+
   (defun camino_minimo (vertices aristas origen destino)
-    (dijkstra vertices aristas (generar_distancias vertices origen) (list origen))
+    (construir_camino
+      vertices
+      aristas
+      (dijkstra vertices aristas (generar_distancias vertices origen) (list origen))
+      origen
+      destino
+    )  
   )
 )
   
