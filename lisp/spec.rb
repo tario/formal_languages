@@ -24,4 +24,5 @@ describe DsLisp, "N queens" do
   test_expression("(if nil 1 2)")
 
   test_expression("(+ 1 2)")
+  test_expression("(+ (+ 1 2) 3)")
 end
