@@ -12,7 +12,21 @@
   (defun ejecutar_funcion (func argumentos entorno)
     (cond
       ((eq func 'let)
-        (lisp_i (car (cdr argumentos)) (append (car argumentos) entorno))
+        (lisp_i 
+          (car (cdr argumentos)) 
+          (append 
+            (mapcar
+              (lambda (a) 
+                (list 
+                  (car a) 
+                  (lisp_i (car (cdr a)) entorno)
+                )
+              )
+              (car argumentos)
+            )
+            entorno
+          )
+        )
       )
       ((eq func 'if) 
         (if 
@@ -21,7 +35,7 @@
           (lisp_i (car (cdr (cdr argumentos))) entorno) 
         )
       )
-      (T (apply func (mapcar 'lisp argumentos)))
+      (T (apply func (mapcar (lambda (a) (lisp_i a entorno) ) argumentos)))
     )
   )
 
