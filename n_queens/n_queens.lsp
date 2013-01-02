@@ -36,11 +36,26 @@
     )
   )
 
+  (defun completar_ceros (linea n)
+    (if 
+      (eq (length linea) n)
+      linea
+      (completar_ceros (append linea (list 0)) n)
+    )
+  )
+
   (defun valido_diagonal_der (tablero)
     (if (null tablero)
       T    
       (and 
-        (valido_columnas (despl_diagonal tablero))
+        (valido_columnas 
+          (mapcar
+            (lambda (x)
+              (completar_ceros x (length (car tablero)))
+            )
+            (despl_diagonal tablero)
+          )
+        )
         (valido_diagonal_der (cdr tablero))
       )
     )
