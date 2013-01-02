@@ -25,4 +25,7 @@ describe DsLisp, "N queens" do
 
   test_expression("(+ 1 2)")
   test_expression("(+ (+ 1 2) 3)")
+
+  test_expression("(let ((a 5)) a)")
+
 end
