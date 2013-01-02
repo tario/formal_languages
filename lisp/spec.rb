@@ -30,5 +30,6 @@ describe DsLisp, "LISP" do
   test_expression("(let ((a 6)) a)")
 
   test_expression("(let ((a 6)) (if T a))")
+  test_expression("(let ((a '(1 2 3))) (car a))")
 
 end
