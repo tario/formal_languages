@@ -16,9 +16,9 @@
       )
       ((eq func 'if) 
         (if 
-          (lisp (car argumentos))
-          (lisp (car (cdr argumentos)))
-          (lisp (car (cdr (cdr argumentos)))) 
+          (lisp_i (car argumentos) entorno)
+          (lisp_i (car (cdr argumentos)) entorno)
+          (lisp_i (car (cdr (cdr argumentos))) entorno) 
         )
       )
       (T (apply func (mapcar 'lisp argumentos)))
