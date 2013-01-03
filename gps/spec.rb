@@ -3,7 +3,7 @@ require "dslisprb"
 describe DsLisp, "GPS" do
   def lisp
     dslisp = DsLisp.new
-    code = File.open("gps.lsp").read.gsub("\n"," ")
+    code = File.open("gps.lsp").read
     dslisp.evaluate(code)
     dslisp
   end

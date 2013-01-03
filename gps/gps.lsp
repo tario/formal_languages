@@ -1,4 +1,5 @@
 (block
+  ;;
   (defun generar_distancias (vertices origen)
     (if (null vertices)
       '()
