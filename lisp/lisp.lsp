@@ -1,4 +1,4 @@
-(block
+
   (defun buscar_entorno (entorno variable)
     (if (null entorno)
       nil
@@ -49,5 +49,5 @@
       (T (ejecutar_funcion (car code) (cdr code) entorno))
     )
   )
-)
+
   

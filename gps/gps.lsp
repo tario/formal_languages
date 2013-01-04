@@ -1,4 +1,4 @@
-(block
+
   ;;
   ;; genera las distancias iniciales para cada vertice
   ;; esto es CERO para el vertice origen, e infinito para los demas
@@ -212,5 +212,5 @@
       destino
     )  
   )
-)
+
   

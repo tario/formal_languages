@@ -1,4 +1,4 @@
-(block
+
   (defun reina_en_linea (n m)
     (if (eq n 0)
       '()
@@ -101,5 +101,5 @@
       )
     )
   )
-)
+
   
