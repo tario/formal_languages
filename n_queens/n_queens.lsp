@@ -83,7 +83,7 @@
     )
   )
 
-  (defun reinas (n &optional (tablero '()) &optional (m nil)) 
+  (defun reinas (n &optional (tablero '()) (m nil)) 
     (if (eq (length tablero) n)
       tablero
       (if (valido (cons (reina_en_linea n (or m n)) tablero))
