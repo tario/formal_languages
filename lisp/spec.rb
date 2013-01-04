@@ -3,7 +3,7 @@ require "dslisprb"
 describe DsLisp, "LISP" do
   def lisp
     dslisp = DsLisp.new
-    code = File.open("lisp.lsp").gsub("\n"," ")
+    code = File.open("lisp.lsp").read.gsub("\n"," ")
     dslisp.evaluate(code)
     dslisp
   end

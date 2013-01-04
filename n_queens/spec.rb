@@ -3,7 +3,7 @@ require "dslisprb"
 describe DsLisp, "N queens" do
   def lisp
     dslisp = DsLisp.new
-    code = File.open("n_queens.lsp").gsub("\n"," ")
+    code = File.open("n_queens.lsp").read.gsub("\n"," ")
     dslisp.evaluate(code)
     dslisp
   end
