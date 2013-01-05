@@ -22,9 +22,9 @@
     (if (null aristas)
       nil
       (if
-        (eq (car (car aristas)) vertice)
+        (eq (caar aristas) vertice)
         (cons
-          (car (cdr (car aristas)))
+          (cadar aristas)
           (vecinos vertice (cdr aristas))
         )
         (vecinos vertice (cdr aristas))
@@ -41,9 +41,9 @@
     (if (null aristas)
       nil
       (if
-        (eq (car (cdr (car aristas))) vertice)
+        (eq (cadar aristas) vertice)
         (cons
-          (car (car aristas))
+          (caar aristas)
           (vecinos_r vertice (cdr aristas))
         )
         (vecinos_r vertice (cdr aristas))
