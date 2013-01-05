@@ -2,8 +2,8 @@
   (defun buscar_entorno (entorno variable)
     (if (null entorno)
       nil
-      (if (eq variable (car (car entorno)))
-        (car (cdr (car entorno)))
+      (if (eq variable (caar entorno))
+        (cadr (car entorno))
         (buscar_entorno (cdr entorno) variable)
       )
     )
@@ -13,13 +13,13 @@
     (cond
       ((eq func 'let)
         (lisp 
-          (car (cdr argumentos)) 
+          (cadr argumentos) 
           (append 
             (mapcar
               (lambda (a) 
                 (list 
                   (car a) 
-                  (lisp (car (cdr a)) entorno)
+                  (lisp (cadr a) entorno)
                 )
               )
               (car argumentos)
@@ -31,8 +31,8 @@
       ((eq func 'if) 
         (if 
           (lisp (car argumentos) entorno)
-          (lisp (car (cdr argumentos)) entorno)
-          (lisp (car (cdr (cdr argumentos))) entorno) 
+          (lisp (cadr argumentos) entorno)
+          (lisp (caddr argumentos) entorno) 
         )
       )
       (T (apply func (mapcar (lambda (a) (lisp a entorno) ) argumentos)))
@@ -45,7 +45,7 @@
       ((null code) nil)
       ((eq code 'T) T)
       ((symbolp code) (buscar_entorno entorno code))
-      ((eq (car code) 'quote) (car (cdr code)) ) 
+      ((eq (car code) 'quote) (cadr code) ) 
       (T (ejecutar_funcion (car code) (cdr code) entorno))
     )
   )
