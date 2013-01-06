@@ -12,11 +12,18 @@
     )
   )
 
-  (defun ejecutar (expresion)
-    (cond
-      (
-        (eq (caar expresion) 'printf)
-        (list (cadar expresion))
+  (defun ejecutar (expresion &optional (salida nil) )
+    (if (null expresion)
+      (reverse salida)
+      (cond
+        (
+          (eq (caar expresion) 'printf)
+          (ejecutar (cdr expresion) (cons (cadar expresion) salida))
+        )
+        (
+          T
+          (ejecutar (cdr expresion) salida)
+        )
       )
     )
   )
