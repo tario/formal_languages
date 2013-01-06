@@ -12,27 +12,34 @@
     )
   )
 
-  (defun ejecutar (expresion &optional (salida nil) )
+  (defun evaluar (expresion mem)
+    (cond
+      ((numberp expresion) expresion)
+      (T 10)
+    )
+  )
+
+  (defun ejecutar (expresion mem &optional (salida '()))
     (if (null expresion)
       (reverse salida)
       (cond
         (
           (eq (caar expresion) 'printf)
-          (ejecutar (cdr expresion) (cons (cadar expresion) salida))
+          (ejecutar (cdr expresion) mem (cons (evaluar (cadar expresion)) salida))
         )
         (
           T
-          (ejecutar (cdr expresion) salida)
+          (ejecutar (cdr expresion) mem salida)
         )
       )
     )
   )
 
-  (defun run (prog &optional (mem nil))
+  (defun run (prog &optional (mem '()))
     (if (null prog) nil
       (if (eq (caar prog) 'main)
-        (ejecutar (cadar prog))
-        (run (cdr prog) mem)
+        (ejecutar (cadar prog) mem)
+        (run (cdr prog) (append (declaracion (car prog)) mem))
       )
     )
   )
