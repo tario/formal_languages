@@ -13,13 +13,18 @@
   )
 
   (defun ejecutar (expresion)
-    (list 5)
+    (cond
+      (
+        (eq (caar expresion) 'printf)
+        (list (cadar expresion))
+      )
+    )
   )
 
   (defun run (prog &optional (mem nil))
     (if (null prog) nil
       (if (eq (caar prog) 'main)
-        (ejecutar (cadr prog))
+        (ejecutar (cadar prog))
         (run (cdr prog) mem)
       )
     )
