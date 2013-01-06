@@ -57,4 +57,34 @@ describe DsLisp, "C" do
     ))").should be == [3];
   end
 
+
+  it "should run basic if with else and run a command after that" do 
+    lisp.evaluate("(run '(
+      (main (
+        (if (1) (
+          (printf 2)
+        ) else (
+          (printf 22)
+        ))
+
+        (printf 3)
+        )
+      )
+    ))").should be == [2, 3];
+  end
+
+  it "should run basic if with else and run a command after that" do 
+    lisp.evaluate("(run '(
+      (main (
+        (if (0) (
+          (printf 2)
+        ) else (
+          (printf 22)
+        ))
+
+        (printf 3)
+        )
+      )
+    ))").should be == [22,3];
+  end
 end
