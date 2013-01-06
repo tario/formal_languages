@@ -12,4 +12,16 @@
     )
   )
 
+  (defun ejecutar (expresion)
+    (list 5)
+  )
+
+  (defun run (prog &optional (mem nil))
+    (if (null prog) nil
+      (if (eq (caar prog) 'main)
+        (ejecutar (cadr prog))
+        (run (cdr prog) mem)
+      )
+    )
+  )
   
