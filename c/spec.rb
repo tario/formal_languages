@@ -36,4 +36,13 @@ describe DsLisp, "C" do
       )
     ))").should be == [5];
   end
+
+  it "should run empty main" do 
+    lisp.evaluate("(run '(
+      (main (
+        (printf 6)
+        )
+      )
+    ))").should be == [6];
+  end
 end
