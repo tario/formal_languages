@@ -12,10 +12,20 @@
     )
   )
 
+  (defun leer_memoria (simbolo mem)
+    (if (null mem)
+      nil
+      (if (eq (caar mem) simbolo)
+        (cadar mem)
+        (leer_memoria simbolo (cdr mem))
+      )
+    )
+  )
+
   (defun evaluar (expresion mem)
     (cond
       ((numberp expresion) expresion)
-      (T 10)
+      (T (leer_memoria expresion mem))
     )
   )
 
@@ -25,7 +35,7 @@
       (cond
         (
           (eq (caar expresion) 'printf)
-          (ejecutar (cdr expresion) mem (cons (evaluar (cadar expresion)) salida))
+          (ejecutar (cdr expresion) mem (cons (evaluar (cadar expresion) mem) salida))
         )
         (
           T
