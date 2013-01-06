@@ -22,6 +22,19 @@
     )
   )
 
+  (defun escribir_memoria (simbolo mem valor)
+    (if (null mem)
+      nil
+      (if (eq (caar mem) simbolo)
+        (cons (list simbolo valor) (cdr mem))
+        (cons 
+          (car mem) 
+          (escribir_memoria simbolo (cdr mem) valor)
+        )
+      )
+    )
+  )
+
   (defun evaluar (expresion mem)
     (cond
       ((numberp expresion) expresion)
@@ -29,13 +42,17 @@
     )
   )
 
-  (defun ejecutar (expresion mem &optional (salida '()))
+  (defun ejecutar (expresion entrada mem &optional (salida '()))
     (if (null expresion)
       (reverse salida)
       (cond
         (
           (eq (caar expresion) 'printf)
-          (ejecutar (cdr expresion) mem (cons (evaluar (cadar expresion) mem) salida))
+          (ejecutar (cdr expresion) entrada mem (cons (evaluar (cadar expresion) mem) salida))
+        )
+        (
+          (eq (caar expresion) 'scanf)
+          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (cadar expresion) mem (car entrada)) salida)
         )
         (
           T
@@ -45,11 +62,11 @@
     )
   )
 
-  (defun run (prog &optional (mem '()))
+  (defun run (prog &optional (entrada '()) (mem '()))
     (if (null prog) nil
       (if (eq (caar prog) 'main)
-        (ejecutar (cadar prog) mem)
-        (run (cdr prog) (append (declaracion (car prog)) mem))
+        (ejecutar (cadar prog) entrada mem)
+        (run (cdr prog) entrada (append (declaracion (car prog)) mem))
       )
     )
   )
