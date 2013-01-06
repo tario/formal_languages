@@ -65,4 +65,14 @@ describe DsLisp, "C" do
       )
     ))").should be == [10]
   end
+
+  it "should read declared variables with value" do 
+    lisp.evaluate("(run '(
+      (int a = 11)
+      (main (
+          (printf a)
+        )
+      )
+    ))").should be == [11]
+  end
 end
