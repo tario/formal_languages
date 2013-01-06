@@ -11,4 +11,8 @@ describe DsLisp, "C" do
   it "should read simple variable declaration" do 
     lisp.evaluate("(declaracion '(int A))").should be == [[:A, nil]];
   end
+
+  it "should read simple variable declaration of two variables" do 
+    lisp.evaluate("(declaracion '(int A B))").should be == [[:A, nil], [:B, nil]];
+  end
 end
