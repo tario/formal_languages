@@ -28,4 +28,12 @@ describe DsLisp, "C" do
     lisp.evaluate("(declaracion '(int A B = 5 C = 6))").should be == [[:A, nil], [:B, 5], [:C, 6]];
   end
 
+  it "should run empty main" do 
+    lisp.evaluate("(run '(
+      (main (
+        (printf 5)
+        )
+      )
+    ))").should be == [5];
+  end
 end
