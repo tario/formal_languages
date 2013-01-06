@@ -55,4 +55,26 @@ describe DsLisp, "C" do
       )
     ))").should be == [11]
   end
+
+  it "should allow input of values" do 
+    lisp.evaluate("(run '(
+      (int a)
+      (main (
+          (scanf a)
+          (printf a)
+        )
+      )
+    ) '(1))").should be == [1]
+  end
+
+  it "should allow input of values" do 
+    lisp.evaluate("(run '(
+      (int a)
+      (main (
+          (scanf a)
+          (printf a)
+        )
+      )
+    ) '(2))").should be == [2]
+  end
 end
