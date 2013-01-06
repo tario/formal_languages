@@ -45,4 +45,14 @@ describe DsLisp, "C" do
       )
     ))").should be == [6];
   end
+
+  it "should run two printf" do 
+    lisp.evaluate("(run '(
+      (main (
+        (printf 7)
+        (printf 8)
+        )
+      )
+    ))").should be == [7,8];
+  end
 end
