@@ -111,4 +111,7 @@ describe DsLisp, "C" do
   end
 
   test_expression("1 + 1", 2)
+  test_expression("1 - 1", 0)
+  test_expression("2 * 2", 4)
+  test_expression("10 / 5", 2)
 end
