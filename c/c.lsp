@@ -45,20 +45,6 @@
     )
   )
 
-  (defun despues (expresion simbolo)
-    (if (null expresion)
-      '()
-      (if (eq (car expresion) simbolo)
-        (cdr expresion)
-        (despues (cdr expresion) simbolo)
-      )
-    )
-  )
-
-  (defun antes (expresion simbolo)
-    (reverse (despues (reverse expresion) simbolo)) 
-  )
-
   (defun evaluar_lisp (expresion mem)
     (if (listp expresion)
       (cond
