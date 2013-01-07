@@ -117,5 +117,8 @@ describe DsLisp, "C" do
 
   test_expression("10 * 4 + 5", 45)
   test_expression("5 + 10 * 4", 45)
+  test_expression("5 - 2 - 3", 0)
+  test_expression("5 - 2 + 3", 6)
+  test_expression("5 + 3 - 2", 6)
 
 end
