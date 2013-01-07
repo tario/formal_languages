@@ -96,4 +96,19 @@ describe DsLisp, "C" do
     ))").should be == [1];
   end
 
+
+  def self.test_expression(expr, expected_result)
+    it "should execute '#{expr}' and should return #{expected_result}" do 
+      lisp.evaluate("(run '(
+        (int x)
+        (main (
+          (x = #{expr})
+          (printf x)
+          )
+        )
+      ))").should be == [expected_result];
+    end
+  end
+
+  test_expression("1 + 1", 2)
 end
