@@ -73,6 +73,9 @@
           ((tiene expresion '==)
             (if (eq (evaluar (antes expresion '==) mem) (evaluar (despues expresion '==) mem)) 1 0)
           )
+          ((eq (cadr expresion) '+)
+            (+ (car expresion) (caddr expresion))
+          )
           (T
             (evaluar (car expresion))
           )
