@@ -55,6 +55,14 @@
           (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (cadar expresion) mem (car entrada)) salida)
         )
         (
+          (eq (cadar expresion) '--)
+          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (- (leer_memoria (caar expresion) mem) 1)) salida)
+        )
+        (
+          (eq (cadar expresion) '++)
+          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (+ (leer_memoria (caar expresion) mem) 1)) salida)
+        )
+        (
           (eq (caar expresion) 'if)
           (if
             (eq (evaluar (car (cadar expresion))) 0)
