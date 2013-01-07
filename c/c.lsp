@@ -67,7 +67,13 @@
   )
 
   (defun prioridad (operando)
-    100
+    (cond
+      ((eq operando '*) 10)
+      ((eq operando '+) 1)
+      ((eq operando '/) 10)
+      ((eq operando '+) 1)
+      (T 100)
+    )
   )
 
   (defun evaluar_operaciones (operadores operandos expresion mem)
