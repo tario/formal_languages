@@ -61,7 +61,10 @@
 
   (defun evaluar_lisp (expresion mem)
     (if (listp expresion)
-      (funcall (car expresion) (evaluar_lisp (cadr expresion) mem) (evaluar_lisp (caddr expresion) mem))
+      (if (tiene '(+ - * / == < >) (car expresion))
+        (funcall (car expresion) (evaluar_lisp (cadr expresion) mem) (evaluar_lisp (caddr expresion) mem))
+        (evaluar expresion mem)
+      )
       (evaluar expresion mem)
     )
   )
