@@ -65,7 +65,7 @@
         (
           (eq (caar expresion) 'if)
           (if
-            (eq (evaluar (car (cadar expresion))) 0)
+            (eq (evaluar (car (cadar expresion)) mem) 0)
             (if (eq (cadr (cddar expresion)) 'else)
               (ejecutar (append (caddr (cddar expresion)) (cdr expresion)) entrada mem salida)
               (ejecutar (cdr expresion) entrada mem salida)
@@ -73,7 +73,14 @@
             (ejecutar (append (car (cddar expresion)) (cdr expresion)) entrada mem salida)
           )
         )
-
+        (
+          (eq (caar expresion) 'while)
+          (if
+            (eq (evaluar (car (cadar expresion)) mem) 0)
+            (ejecutar (cdr expresion) entrada mem salida)
+            (ejecutar (append (car (cddar expresion)) expresion) entrada mem salida)
+          )
+        )
         (
           T
           (ejecutar (cdr expresion) entrada mem salida)
