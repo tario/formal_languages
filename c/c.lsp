@@ -38,6 +38,7 @@
   (defun evaluar (expresion mem)
     (cond
       ((numberp expresion) expresion)
+      ((listp expresion) (evaluar (car expresion)))
       (T (leer_memoria expresion mem))
     )
   )
@@ -61,6 +62,10 @@
         (
           (eq (cadar expresion) '++)
           (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (+ (leer_memoria (caar expresion) mem) 1)) salida)
+        )
+        (
+          (eq (cadar expresion) '=)
+          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (evaluar (cddar expresion))) salida)
         )
         (
           (eq (caar expresion) 'if)
