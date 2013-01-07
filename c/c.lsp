@@ -57,15 +57,15 @@
         )
         (
           (eq (cadar expresion) '--)
-          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (- (leer_memoria (caar expresion) mem) 1)) salida)
+          (ejecutar (cdr expresion) entrada (escribir_memoria (caar expresion) mem (- (leer_memoria (caar expresion) mem) 1)) salida)
         )
         (
           (eq (cadar expresion) '++)
-          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (+ (leer_memoria (caar expresion) mem) 1)) salida)
+          (ejecutar (cdr expresion) entrada (escribir_memoria (caar expresion) mem (+ (leer_memoria (caar expresion) mem) 1)) salida)
         )
         (
           (eq (cadar expresion) '-=)
-          (ejecutar (cdr expresion) (cdr entrada) 
+          (ejecutar (cdr expresion) entrada 
               (escribir_memoria (caar expresion) mem (- (leer_memoria (caar expresion) mem)
                 (evaluar (cddar expresion))
                 )) 
@@ -73,7 +73,7 @@
         )
         (
           (eq (cadar expresion) '+=)
-          (ejecutar (cdr expresion) (cdr entrada) 
+          (ejecutar (cdr expresion) entrada 
               (escribir_memoria (caar expresion) mem (+ (leer_memoria (caar expresion) mem) 
                 (evaluar (cddar expresion))
                 )) 
@@ -81,7 +81,7 @@
         )
         (
           (eq (cadar expresion) '=)
-          (ejecutar (cdr expresion) (cdr entrada) (escribir_memoria (caar expresion) mem (evaluar (cddar expresion))) salida)
+          (ejecutar (cdr expresion) entrada (escribir_memoria (caar expresion) mem (evaluar (cddar expresion))) salida)
         )
         (
           (eq (caar expresion) 'if)
