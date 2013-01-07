@@ -59,6 +59,29 @@
     (reverse (despues (reverse expresion) simbolo)) 
   )
 
+  (defun evaluar_lisp (expresion mem)
+    (if (listp expresion)
+      (funcall (car expresion) (evaluar_lisp (cadr expresion) mem) (evaluar_lisp (caddr expresion) mem))
+      (evaluar expresion mem)
+    )
+  )
+
+  (defun evaluar_operaciones (operadores operandos expresion mem)
+    (if (null expresion)
+      (if (null operadores)
+        (if (listp (car operandos))
+          (evaluar_operaciones '() (car operandos) '() mem)
+          (evaluar_lisp operandos mem)
+        )
+        (evaluar_operaciones (cdr operadores) (cons (list (car operadores) (cadr operandos) (car operandos)) (cddr operandos)) expresion mem)
+      )
+      (if (tiene '(+ - * / == < >) (car expresion))
+        (evaluar_operaciones (cons (car expresion) operadores) operandos (cdr expresion) mem)
+        (evaluar_operaciones operadores (cons (car expresion) operandos) (cdr expresion) mem)
+      )
+    )
+  )
+
   (defun evaluar (expresion mem)
     (cond
       ((numberp expresion) expresion)
@@ -74,7 +97,7 @@
             (if (eq (evaluar (antes expresion '==) mem) (evaluar (despues expresion '==) mem)) 1 0)
           )
           ((tiene '(+ - * /) (cadr expresion))
-            (funcall (cadr expresion) (car expresion) (caddr expresion))
+            (evaluar_operaciones '() '() expresion mem)
           )
           (T
             (evaluar (car expresion))
