@@ -70,6 +70,9 @@
           ((tiene expresion '<)
             (if (< (evaluar (antes expresion '<) mem) (evaluar (despues expresion '<) mem)) 1 0)
           )
+          ((tiene expresion '==)
+            (if (eq (evaluar (antes expresion '==) mem) (evaluar (despues expresion '==) mem)) 1 0)
+          )
           (T
             (evaluar (car expresion))
           )
