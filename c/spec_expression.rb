@@ -121,4 +121,6 @@ describe DsLisp, "C" do
   test_expression("5 - 2 + 3", 6)
   test_expression("5 + 3 - 2", 6)
 
+  test_expression("5 * (3 + 7)", 50)
+
 end
