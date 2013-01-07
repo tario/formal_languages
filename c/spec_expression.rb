@@ -18,4 +18,15 @@ describe DsLisp, "C" do
       )
     ))").should be == [11];
   end
+
+  it "should run basic decrement" do 
+    lisp.evaluate("(run '(
+      (int x = 10)
+      (main (
+        (x --)
+        (printf x)
+        )
+      )
+    ))").should be == [9];
+  end
 end
