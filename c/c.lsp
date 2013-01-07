@@ -1,4 +1,4 @@
-
+(block
   (defun declaracion (variable_list)
     (if (eq (car variable_list) 'int)
       (declaracion (cdr variable_list))
@@ -35,10 +35,43 @@
     )
   )
 
+  (defun tiene (expresion simbolo)
+    (if (null expresion)
+      nil
+      (if (eq (car expresion) simbolo)
+        T
+        (tiene (cdr expresion) simbolo)
+      )
+    )
+  )
+
+  (defun despues (expresion simbolo)
+    (if (null expresion)
+      '()
+      (if (eq (car expresion) simbolo)
+        (cdr expresion)
+        (despues (cdr expresion) simbolo)
+      )
+    )
+  )
+
+  (defun antes (expresion simbolo)
+    (reverse (despues (reverse expresion) simbolo)) 
+  )
+
   (defun evaluar (expresion mem)
     (cond
       ((numberp expresion) expresion)
-      ((listp expresion) (evaluar (car expresion)))
+      ((listp expresion)
+        (cond
+          ((tiene expresion '>)
+            (if (> (evaluar (antes expresion '>) mem) (evaluar (despues expresion '>) mem)) 1 0)
+          )
+          (T
+            (evaluar (car expresion))
+          )
+        )
+      )
       (T (leer_memoria expresion mem))
     )
   )
@@ -118,4 +151,4 @@
       )
     )
   )
-  
+)  
