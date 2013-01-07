@@ -51,4 +51,26 @@ describe DsLisp, "C" do
       )
     ))").should be == [0];
   end
+
+  it "should run lt comparison" do 
+    lisp.evaluate("(run '(
+      (int x)
+      (main (
+        (x = 3 < 4)
+        (printf x)
+        )
+      )
+    ))").should be == [1];
+  end
+
+  it "should run lt comparison" do 
+    lisp.evaluate("(run '(
+      (int x)
+      (main (
+        (x = 4 < 4)
+        (printf x)
+        )
+      )
+    ))").should be == [0];
+  end
 end
