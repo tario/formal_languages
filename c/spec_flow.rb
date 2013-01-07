@@ -87,4 +87,18 @@ describe DsLisp, "C" do
       )
     ))").should be == [22,3];
   end
+
+
+  it "should run basic while" do 
+    lisp.evaluate("(run '(
+      (int a = 3)
+      (main (
+        (while (a) (
+          (printf a)
+          (a --)
+        ))
+        )
+      )
+    ))").should be == [3,2,1];
+  end
 end
