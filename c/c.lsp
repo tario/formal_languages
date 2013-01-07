@@ -66,6 +66,10 @@
     )
   )
 
+  (defun prioridad (operando)
+    100
+  )
+
   (defun evaluar_operaciones (operadores operandos expresion mem)
     (if (null expresion)
       (if (null operadores)
@@ -76,7 +80,13 @@
         (evaluar_operaciones (cdr operadores) (cons (list (car operadores) (cadr operandos) (car operandos)) (cddr operandos)) expresion mem)
       )
       (if (tiene '(+ - * / == < >) (car expresion))
-        (evaluar_operaciones (cons (car expresion) operadores) operandos (cdr expresion) mem)
+        (if (null operadores)
+          (evaluar_operaciones (cons (car expresion) operadores) operandos (cdr expresion) mem)
+          (if (> (prioridad (car expresion)) (prioridad (car operadores)))
+            (evaluar_operaciones (cons (car expresion) operadores) operandos (cdr expresion) mem)
+            (evaluar_operaciones (cdr operadores) (cons (list (car operadores) (cadr operandos) (car operandos)) (cddr operandos)) expresion mem)
+          )
+        )
         (evaluar_operaciones operadores (cons (car expresion) operandos) (cdr expresion) mem)
       )
     )
