@@ -123,4 +123,15 @@ describe DsLisp, "C" do
 
   test_expression("5 * (3 + 7)", 50)
 
+  it "should execute expression with variable" do 
+    lisp.evaluate("(run '(
+      (int y x = 10)
+      (main (
+        (y = x + 1)
+        (printf y)
+        )
+      )
+    ))").should be == [11];
+  end
+
 end
