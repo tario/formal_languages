@@ -1,4 +1,4 @@
-(block
+
   (defun declaracion (variable_list)
     (if (eq (car variable_list) 'int)
       (declaracion (cdr variable_list))
@@ -193,4 +193,3 @@
       )
     )
   )
-)  
