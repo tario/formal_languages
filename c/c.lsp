@@ -156,7 +156,7 @@
         )
         (
           (eq (cadar expresion) '=)
-          (ejecutar (cdr expresion) entrada (escribir_memoria (caar expresion) mem (evaluar (cddar expresion))) salida)
+          (ejecutar (cdr expresion) entrada (escribir_memoria (caar expresion) mem (evaluar (cddar expresion) mem)) salida)
         )
         (
           (eq (caar expresion) 'if)
