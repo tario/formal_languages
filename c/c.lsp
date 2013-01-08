@@ -110,7 +110,7 @@
             (evaluar_operaciones '() '() expresion mem)
           )
           (T
-            (evaluar (car expresion))
+            (evaluar (car expresion) mem)
           )
         )
       )
