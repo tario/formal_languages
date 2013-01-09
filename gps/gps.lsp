@@ -213,4 +213,63 @@
     )  
   )
 
+  (defun tiene (expresion simbolo)
+    (if (null expresion)
+      nil
+      (if (eq (car expresion) simbolo)
+        T
+        (tiene (cdr expresion) simbolo)
+      )
+    )
+  )
+
+  (defun planchar (grafo)
+    (if (null grafo)
+      '()
+      (append
+        (append
+          (list (caar grafo))
+          (cadar grafo)
+        )
+        (planchar (cdr grafo))
+      )
+    )
+  )
+
+  (defun filtrar_repetidos (lista)
+    (if (null lista)
+      '()
+      (let
+        ((sublist (filtrar_repetidos (cdr lista))))
+        (if (tiene sublist (car lista)) sublist (cons (car lista) sublist))
+      )
+    )
+  )
+
+  (defun obtener_vertices (grafo)
+    (filtrar_repetidos (planchar grafo))
+  )
+
+  (defun obtener_aristas (grafo)
+    (if (null grafo)
+      '()
+      (append
+        (mapcar 
+          (lambda (x) (list (caar grafo) x))
+          (cadar grafo)
+        )
+        (obtener_aristas (cdr grafo))
+      )
+    )
+  )
+
+  (defun camino (grafo origen destino)
+    (camino_minimo
+      (obtener_vertices grafo)
+      (obtener_aristas grafo)
+      origen
+      destino
+    )
+  )
+
   
