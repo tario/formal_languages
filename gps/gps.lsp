@@ -227,10 +227,8 @@
     (if (null grafo)
       '()
       (append
-        (append
-          (list (caar grafo))
-          (cadar grafo)
-        )
+        (list (caar grafo))
+        (cadar grafo)
         (planchar (cdr grafo))
       )
     )
