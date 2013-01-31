@@ -144,19 +144,21 @@
   (defun reinas (n &optional (tablero '()) (m nil)) 
     (if (eq (length tablero) n)
       tablero
-      (if (valido (cons (reina_en_linea n (or m n)) tablero))
-        (or
-          (reinas n (cons (reina_en_linea n (or m n)) tablero) n)
+	  (let ((tablero_nuevo (cons (reina_en_linea n (or m n)) tablero)))
+        (if (valido tablero_nuevo)
+          (or
+            (reinas n tablero_nuevo n)
+            (if (eq (or m n) 1)
+              nil
+              (reinas n tablero (- (or m n) 1))
+            )
+          )
           (if (eq (or m n) 1)
             nil
             (reinas n tablero (- (or m n) 1))
           )
         )
-        (if (eq (or m n) 1)
-          nil
-          (reinas n tablero (- (or m n) 1))
-        )
-      )
+	  )
     )
   )
 
