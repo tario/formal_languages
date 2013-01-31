@@ -116,10 +116,8 @@
 ;;; 	no se repiten reinas en ninguna diagonal
   (defun valido (tablero)
     (and
-      (and
-        (valido_columnas tablero)
-        (valido_diagonal_izq tablero)
-      )
+      (valido_columnas tablero)
+      (valido_diagonal_izq tablero)
       (valido_diagonal_der tablero)
     )
   )
