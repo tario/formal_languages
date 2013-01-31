@@ -23,6 +23,10 @@
 ;;; de la ultima columna, se retrocede a la fila anterior ya que se demostro
 ;;; que por ese camino no se puede llegar a la solucion
 
+;;; genera una fila de longitud N con una reina en la posicion M
+;;; Ejemplo (reina_en_linea 4 4) -> (0 0 0 1)
+;;; Ejemplo (reina_en_linea 4 2) -> (0 1 0 0)
+;;; Ejemplo (reina_en_linea 5 3) -> (0 0 1 0 0)
   (defun reina_en_linea (n m)
     (if (eq n 0)
       '()
@@ -40,6 +44,12 @@
       (+ (car v) (sumatoria (cdr v)))
     )
   )
+
+;;; devuelve T si el tablero es valido segun las columnas
+;;; para esto efectua la sumatoria de la lista compuesta por los primeros
+;;; elementos de todas las filas, si esta sumatoria es mayor que 1 el tablero
+;;; se considera invalido, en caso contrario se verifica la proxima columna
+;;; con un llamado recursivo
 
   (defun valido_columnas (tablero) 
     (if (null (car tablero))
@@ -72,7 +82,10 @@
       )
     )
   )
-
+  
+;;; verifica si el tablero es valido segun las diagonales que van hacia la derecha
+;;; para esto rota cada fila del tablero tantas veces como indice de fila y luego
+;;; valida las columnas de ese tablero
   (defun valido_diagonal_der (tablero)
     (if (null tablero)
       T    
@@ -83,6 +96,7 @@
     )
   )
 
+;;; espeja una lista. Ejemplo (mirror '(1 2 3)) -> (3 2 1)
   (defun mirror (v)
     (if (null v)
       v
@@ -90,10 +104,16 @@
     )
   )
 
+;;; verifica si el tablero es valido segun las diagonales que van hacia la izquierda
+;;; para esto espeja el tablero y utiliza la otra funcion para validar diagonales
   (defun valido_diagonal_izq (tablero)
     (valido_diagonal_der (mapcar 'mirror tablero))
   )
 
+;;; devuelve T si el tablero es valido, NIL en caso contrario
+;;; el tablero es valido si 
+;;; 	no se repiten reinas en una columna
+;;; 	no se repiten reinas en ninguna diagonal
   (defun valido (tablero)
     (and
       (and
