@@ -22,6 +22,8 @@
     )
   )
 
+;;; devuelve verdadero si la lista expresion contiene un simbolo o nil
+;;; en caso contrario
   (defun tiene (expresion simbolo)
     (if (null expresion)
       nil
@@ -32,6 +34,9 @@
     )
   )
 
+;;; evalua un arbol de operaciones que esta en un formato parecido a lisp
+;;; lo usa la funcion evaluar_operaciones despues de procesar todos los
+;;; operadores y operandos
   (defun evaluar_lisp (expresion mem)
     (if (listp expresion)
       (cond
@@ -53,6 +58,7 @@
     )
   )
 
+;;; establece la prioridad de un operando
   (defun prioridad (operando)
     (cond
       ((eq operando '==) 1000)
@@ -61,11 +67,13 @@
       ((eq operando '*) 10)
       ((eq operando '+) 1)
       ((eq operando '/) 10)
-      ((eq operando '+) 1)
       (T 1)
     )
   )
 
+;;; evalua una expresion estilo C aplicando el algoritmo de 
+;;; operadores y operandos y posteriormente evaluando el arbol
+;;; obtenido mediante la funcion evaluar_lisp
   (defun evaluar_operaciones (operadores operandos expresion mem)
     (if (null expresion)
       (if (null operadores)
@@ -88,6 +96,12 @@
     )
   )
 
+;;; evalua una expresion C, en un contexto de memoria dado
+;;; si la expresion es un numero, el propio numero es el resultado
+;;; si la expresion es una lista, se evalua como un grupo de operaciones
+;;; con evaluar_operaciones
+;;; en caso contrario, se la considera una variable y se utiliza
+;;; leer_memoria para devolver el valor de la variable
   (defun evaluar (expresion mem)
     (cond
       ((numberp expresion) expresion)
@@ -105,6 +119,10 @@
     )
   )
 
+;;; ejecuta una linea de codigo C y devuelve la salida que se genero
+;;; maneja la logica del if y del while y ejecuta las funciones
+;;; printf, scanf, --, ++, -=, += e = parseando y evaluando
+;;; los argumentos mediante la funcion evaluar
   (defun ejecutar (expresion entrada mem &optional (salida '()))
     (if (null expresion)
       (reverse salida)
@@ -172,6 +190,8 @@
     )
   )
 
+;;; Analiza una declaracion de variables para obtener la lista de variables
+;;; y sus respectivos valores iniciales (si no se declara con valor inicial, se toma nil)
   (defun declaracion (variable_list)
     (if (eq (car variable_list) 'int)
       (declaracion (cdr variable_list))
@@ -185,6 +205,21 @@
     )
   )
 
+;;; ejecuta el programa, una lista de declaraciones y al final el main
+;;;
+;;; Argumentos:
+;;;		prog: programa
+;;;		entrada: una lista con los valores de entrada que leera scanf
+;;;		mem: una lista de pares clave valor con las variables y sus valores
+;;; 
+;;; Cuando se ejecuta, si lo primero que encuentra es el main, 
+;;; llama a la funcion "ejecutar" con el codigo del programa dentro
+;;; de ese main
+;;; Si lo primero que encuentra no es el main, significa que es una
+;;; declaracion de variables, entonces llama recursivamente a run para que
+;;; ejecute el resto del programa, pero se le agrega a la memoria
+;;; el valor inicial de las variables declaradas, obteniadas mediante
+;;; la funcion declaracion definida mas arriba
   (defun run (prog &optional (entrada '()) (mem '()))
     (if (null prog) nil
       (if (eq (caar prog) 'main)
