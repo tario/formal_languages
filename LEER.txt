@@ -1,0 +1,80 @@
+El codigo fuente de los cuatro trabajos practicos esta separado en cuatro directorios
+
+Cada uno de esos directorios contiene el codigo fuente en un archivo de texto con 
+extension LSP que ademas detalla en comentarios el funcionamiento del codigo.
+
+Todos estan acompañados con pruebas automaticas escritas en ruby
+que utilizan el interprete dslisprb (http://github.com/tario/dslisprb) para
+correr el codigo. Aunque todo el codigo tambien fue testeado en el interprte X LISP
+
+= n_queens
+
+Solucion del problema de las N reinas en lisp, implementa la funcion reinas que recibe
+como unico parametro el ancho y alto del tablero y la cantidad de reinas y devuelve
+el tablero representado como una lista de listas con 1 en las casillas que corresponde
+colocar una reina segun la solucion encontrada por el programa
+
+Ej:
+
+(reinas 4)
+
+Devuelve
+((0 1 0 0) (0 0 0 1) (1 0 0 0) (0 0 1 0))
+
+= gps
+
+la implementacion de la busqueda de camino minimo, implementa una funcion llamada camino
+que recibe como parametro el grafo, el nodo de origen y el nodo de destino para que el cual
+se quiere buscar el camino y devuelve el camino en una lista.
+
+Ej:
+
+(camino '((1 (2)) (2 (3)) (3 (4))) 1 4)
+
+Devuelve (1 2 3 4)
+
+= lisp
+
+interprete de lisp en lisp, implementa una funcion llamada lisp que recibe como parametro
+el codigo lisp y lo ejecuta, devuelve lo que ese codigo lisp devuelve al ser ejecutado
+
+Ej:
+
+(lisp '(car '(1 2 3)))	devuelve 1
+(lisp '(cdr '(1 2 3)))	devuelve (1 2)
+(lisp ''(cdr '(1 2 3)))	devuelve (CDR (QUOTE (1 2 3)))
+
+
+= c
+
+interprete de C en lisp, implementa una funcion llamada run que recibe como parametros
+el codigo C y una lista de valores de entrada que seran leidos dentro del programa
+por cada llamada a scanf, este ultimo parametro es opcional
+
+Ej:
+
+(run '(
+      (int a = 3)
+      (main (
+        (while (a) (
+          (printf a)
+          (a --)
+        ))
+        )
+      )
+    ))
+
+Devuelve (3 2 1)
+
+(run '(
+      (int a)
+      (main (
+          (scanf a)
+          (printf a)
+        )
+      )
+    ) '(2))
+
+Devuelve (2)
+
+
